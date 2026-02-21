@@ -137,12 +137,48 @@ build_flags =
 
 | File | Change |
 |------|--------|
-| `protobufs/meshtastic/config.proto` | Added `hide_pin` field |
-| `src/mesh/NodeDB.h` | Added backup methods |
-| `src/mesh/NodeDB.cpp` | Implemented backup/restore |
+| `protobufs/meshtastic/config.proto` | Added `hide_pin` field to BluetoothConfig |
 | `src/mesh/generated/meshtastic/config.pb.h` | Regenerated with `hide_pin` |
+| `src/mesh/NodeDB.h` | Added backup file constants and methods |
+| `src/mesh/NodeDB.cpp` | Implemented backup/restore logic |
+| `src/modules/AdminModule.cpp` | Fixed incomplete backup removal code |
+| `src/motion/AccelerometerThread.h` | Added `#ifdef HAS_*_LIB` guards for optional sensors |
 | `variants/nrf52840/t-echo-plus/nicheGraphics.h` | InkHUD2 initialization |
-| `platformio.ini` | Added `t-echo-plus-inkhud2` env |
+| `variants/nrf52840/t-echo-plus/platformio.ini` | Added `t-echo-plus-inkhud2` env |
+
+### AccelerometerThread.h Details
+
+Added conditional compilation guards for sensor libraries that may not be present:
+
+```cpp
+#ifdef HAS_MPU6050_LIB
+case ScanI2C::DeviceType::MPU6050:
+    sensor = new MPU6050Sensor(device);
+    break;
+#endif
+#ifdef HAS_LIS3DH_LIB
+case ScanI2C::DeviceType::LIS3DH:
+    sensor = new LIS3DHSensor(device);
+    break;
+#endif
+// ... similar for LSM6DS3, ICM20948, BMM150, BMX160
+```
+
+This allows builds without motion sensor libraries (saves ~17KB flash).
+
+### AdminModule.cpp Details
+
+Fixed incomplete backup removal code that referenced undefined `backupFileName`:
+
+```cpp
+// Before (broken):
+FSCom.remove(backupFileName);
+
+// After (fixed):
+FSCom.remove(autoBackupFileName);
+FSCom.remove(autoBackupPrevFileName);
+FSCom.remove(userBackupFileName);
+```
 
 ---
 
@@ -152,5 +188,3 @@ All files under:
 - `src/graphics/niche/InkHUD2/` (entire directory)
 - `src/graphics/niche/Fonts/CJK/UnifiedFont18px.h`
 - `src/graphics/niche/Fonts/CJK/CJKFont.h`
-
-
