@@ -28,5 +28,5 @@ New graphics architecture designed specifically for e-ink displays on Meshtastic
 
 ### Merge branch: 
 
-- [https://github.com/kuroanji/firmware/tree/InkHUD2](https://github.com/kuroanji/firmware/tree/InkHUD2)
+- Japanese/Latin/Cyrillic font included by default (just replace it with Chinese/Korean one if needed): [https://github.com/kuroanji/firmware/tree/InkHUD2](https://github.com/kuroanji/firmware/tree/InkHUD2)
 - Instructions for adding the `hide_pin` field to Meshtastic protobufs: `HIDE_PIN_PROTOBUF.md`
