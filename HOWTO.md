@@ -223,11 +223,3 @@ Try:
 2. Hold Reset for 10 seconds
 3. Double-tap Reset to enter bootloader and reflash
 
----
-
-## Tips
-
-1. **Battery saving:** Use Shut Down instead of waiting for discharge
-2. **Backup before experiments:** Menu → System → Backup
-3. **GPS indoors:** Disable GPS to save power (Menu → GPS)
-4. **Quick Ping:** Convenient for testing connectivity with other nodes
