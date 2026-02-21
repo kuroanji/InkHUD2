@@ -50,7 +50,7 @@ font-generator/
 
 | File | Description | Source |
 |------|-------------|--------|
-| `joyo_kanji.txt` | 2136 Joyo Kanji (常用漢字) | [Wikipedia: Jōyō kanji](https://en.wikipedia.org/wiki/List_of_jōyō_kanji) |
+| `joyo_kanji.txt` | 2136 Joyo Kanji (常用漢字) | [List of 2136 Joyo kanji (one per line) from https://github.com/scriptin/topokanji](https://github.com/scriptin/topokanji) |
 | `common_hanzi.txt` | 3500 Common Chinese (GB2312 Level 1) | [Wikipedia: GB2312](https://en.wikipedia.org/wiki/GB_2312) |
 | (built-in) | Korean: 2343 Hangul syllables (KS X 1001) | Algorithmic generation U+AC00–U+D7AF |
 
