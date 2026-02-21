@@ -151,4 +151,6 @@ build_flags =
 All files under:
 - `src/graphics/niche/InkHUD2/` (entire directory)
 - `src/graphics/niche/Fonts/CJK/UnifiedFont18px.h`
+- `src/graphics/niche/Fonts/CJK/CJKFont.h`
+
 
