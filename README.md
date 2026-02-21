@@ -25,3 +25,8 @@ New graphics architecture designed specifically for e-ink displays on Meshtastic
 ### Release Notes: 
 
 - Read `RELEASE_NOTES.md`
+
+### Merge branch: 
+
+- [https://github.com/kuroanji/firmware/tree/InkHUD2](https://github.com/kuroanji/firmware/tree/InkHUD2)
+- Instructions for adding the `hide_pin` field to Meshtastic protobufs: `HIDE_PIN_PROTOBUF.md`
