@@ -22,10 +22,12 @@ Three interchangeable fonts, one active at compile time:
 - Setting: Menu → System → Hide PIN
 - Stored in `config.bluetooth.hide_pin`
 
-### 3. Auto-Backup System
-- Automatic settings backup
-- Recovery from corrupted configs
+### 3. Backup & Restore System
+- Automatic settings backup on shutdown
+- Backup rotation (auto_backup → auto_backup_prev)
+- Recovery from corrupted configs on boot
 - Manual "golden" backup: Menu → System → Backup
+- Restore from backup: Menu → System → Restore
 
 
 ## Architecture
