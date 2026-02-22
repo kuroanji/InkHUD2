@@ -23,7 +23,7 @@ message BluetoothConfig {
 
 ---
 
-### 2. Backup System (`src/mesh/NodeDB.h`, `src/mesh/NodeDB.cpp`)
+### 2. Backup System (`src/mesh/NodeDB.h`, `src/mesh/NodeDB.cpp`, `src/Power.cpp`)
 
 Added backup system:
 
@@ -35,12 +35,20 @@ static constexpr const char *userBackupFileName = "/backups/user_backup.proto";
 
 bool backupPreferences(meshtastic_AdminMessage_BackupLocation location);
 bool backupUserPreferences();  // Manual "golden" backup
+bool restorePreferences(meshtastic_AdminMessage_BackupLocation location, int restoreWhat);
 ```
 
 **Functionality:**
-- `backupPreferences(FLASH)` — automatic backup on shutdown
+- `backupPreferences(FLASH)` — automatic backup with rotation
 - `backupUserPreferences()` — manual "golden" backup
+- `restorePreferences()` — restore from backup chain
 - Auto-recovery on boot if main files are corrupted
+- Auto backup on any shutdown (Power.cpp integration)
+
+**Files:**
+- `src/mesh/NodeDB.h` — method declarations
+- `src/mesh/NodeDB.cpp` — backup/restore implementation
+- `src/Power.cpp` — auto backup on shutdown (added `backupPreferences(FLASH)` call)
 
 ---
 
@@ -82,7 +90,8 @@ src/graphics/niche/InkHUD2/
 │   ├── ListView.h/cpp       — Message list view
 │   └── ChatView.h/cpp       — Chat-style view
 ├── InkHUD2.h/cpp            — Main singleton
-└── Events.h/cpp             — Event definitions
+├── Events.h/cpp             — Event definitions
+└── Setup.h/cpp              — Common initialization (modules, menu, buttons)
 ```
 
 ---
@@ -108,11 +117,16 @@ Font generator: `/font-generator/`
 
 ### `variants/nrf52840/t-echo-plus/nicheGraphics.h`
 
-Completely rewritten for InkHUD2:
-- InkHUD2 singleton initialization
+Simplified to ~100 lines (was ~500). Device-specific only:
+- E-ink driver initialization
+- `InkHUD2::Config` with device pins and settings
+- Single call to `InkHUD2::setup(driver, config)`
+
+Common code moved to `Setup.h/cpp`:
 - All modules creation
 - Menu configuration (items, submenus, callbacks)
-- Button configuration
+- Button handlers
+- Event system setup
 
 ## PlatformIO Configuration
 
@@ -141,9 +155,10 @@ build_flags =
 | `src/mesh/generated/meshtastic/config.pb.h` | Regenerated with `hide_pin` |
 | `src/mesh/NodeDB.h` | Added backup file constants and methods |
 | `src/mesh/NodeDB.cpp` | Implemented backup/restore logic |
+| `src/Power.cpp` | Added auto backup on shutdown |
 | `src/modules/AdminModule.cpp` | Fixed incomplete backup removal code |
 | `src/motion/AccelerometerThread.h` | Added `#ifdef HAS_*_LIB` guards for optional sensors |
-| `variants/nrf52840/t-echo-plus/nicheGraphics.h` | InkHUD2 initialization |
+| `variants/nrf52840/t-echo-plus/nicheGraphics.h` | Simplified to device-specific config only |
 | `variants/nrf52840/t-echo-plus/platformio.ini` | Added `t-echo-plus-inkhud2` env |
 
 ### AccelerometerThread.h Details
@@ -186,5 +201,7 @@ FSCom.remove(userBackupFileName);
 
 All files under:
 - `src/graphics/niche/InkHUD2/` (entire directory)
+- `src/graphics/niche/InkHUD2/Setup.h` — device config struct
+- `src/graphics/niche/InkHUD2/Setup.cpp` — common initialization logic
 - `src/graphics/niche/Fonts/CJK/UnifiedFont18px.h`
 - `src/graphics/niche/Fonts/CJK/CJKFont.h`
