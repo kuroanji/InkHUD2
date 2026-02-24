@@ -2,7 +2,6 @@
 
 User guide for InkHUD2 on T-Echo Plus.
 
-
 # TL;DR
 
 Long press on:
@@ -101,7 +100,13 @@ Node position map.
 - Nodes with known positions
 - Scale bar (auto-scaling)
 
-**View toggle:** Long press → switch between "All nodes" / "Favorites only"
+**Navigation:**
+- Short press = next option in settings
+- Long press = open settings / back
+
+**Settings menu:**
+- My Position — shows your coordinates, altitude, timestamp, and compass
+- Show all nodes — toggle between "Favorites only" / "All nodes with position"
 
 ---
 
@@ -144,6 +149,22 @@ Proper device shutdown.
 4. Power off
 
 **Important:** Use Shut Down instead of disconnecting power to protect data.
+
+### My Position
+
+View your current GPS coordinates.
+
+**Access:** Map module → Long press → My Position
+
+**Display:**
+- Latitude and longitude (DMS format)
+- Altitude in meters
+- Time since last GPS update
+- Compass with heading (if ground track available)
+
+**If no GPS fix:** Shows message "Waiting for GPS update..."
+
+---
 
 ### Ping
 
@@ -230,5 +251,3 @@ Try:
 1. Connect USB (device may be in deep sleep)
 2. Hold Reset for 10 seconds
 3. Double-tap Reset to enter bootloader and reflash
-
-
