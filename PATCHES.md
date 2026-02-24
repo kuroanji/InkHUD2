@@ -23,7 +23,30 @@ message BluetoothConfig {
 
 ---
 
-### 2. Backup System (`src/mesh/NodeDB.h`, `src/mesh/NodeDB.cpp`, `src/Power.cpp`)
+### 2. NodeDB Save Throttle (`src/mesh/Default.h`, `src/mesh/NodeDB.cpp`)
+
+Increased NodeDB save throttle from 1 minute to 10 minutes for flash wear protection.
+
+```cpp
+// Default.h
+#define TEN_MINUTES_MS 10 * 60 * 1000
+
+// NodeDB.cpp:1898
+if (!Throttle::isWithinTimespanMs(lastNodeDbSave, TEN_MINUTES_MS)) {
+    saveToDisk(SEGMENT_NODEDATABASE);
+    lastNodeDbSave = millis();
+}
+```
+
+**Rationale:** See `docs/FLASH_WEAR_PROTECTION.md`
+
+**Files:**
+- `src/mesh/Default.h` — added `TEN_MINUTES_MS` constant
+- `src/mesh/NodeDB.cpp` — changed throttle from `ONE_MINUTE_MS` to `TEN_MINUTES_MS`
+
+---
+
+### 3. Backup System (`src/mesh/NodeDB.h`, `src/mesh/NodeDB.cpp`, `src/Power.cpp`)
 
 Added backup system:
 
@@ -59,12 +82,13 @@ bool restorePreferences(meshtastic_AdminMessage_BackupLocation location, int res
 ```
 src/graphics/niche/InkHUD2/
 ├── Core/
-│   ├── Buffer.h/cpp         — Frame buffer management
+│   ├── Buffer.h             — Frame buffer management
 │   ├── Font.h/cpp           — CJKFont wrapper
-│   ├── Layout.h/cpp         — Dynamic layout calculation
+│   ├── Layout.h             — Dynamic layout calculation
 │   ├── RenderContext.h/cpp  — Drawing primitives
+│   ├── Logo.h/cpp           — Meshtastic logo rendering
 │   ├── Settings.h           — Persistent settings (hide_pin, etc.)
-│   └── BluetoothState.h     — BT connection state
+│   └── BluetoothState.h/cpp — BT connection state
 ├── Drivers/
 │   └── EInkAdapter.h/cpp    — Adapter for e-ink driver
 ├── Fonts/
@@ -76,21 +100,23 @@ src/graphics/niche/InkHUD2/
 │   ├── MenuModule.h/cpp
 │   ├── MessageModule.h/cpp
 │   ├── NodeListModule.h/cpp
-│   ├── NotificationModule.h/cpp
 │   └── MapModule.h/cpp
 ├── Pipe/
 │   ├── Pipe.h/cpp           — Module lifecycle
-│   └── Events.h/cpp         — Meshtastic event bridge
+│   └── Events.h/cpp         — Meshtastic event bridge + shutdown handler
 ├── Text/
 │   └── TextRenderer.cpp     — Text with wrapping
 ├── UI/
 │   ├── MenuItem.h           — Menu item struct
-│   └── MenuList.h/cpp       — Menu rendering
+│   ├── MenuList.h/cpp       — Menu rendering
+│   ├── StatusBar.h/cpp      — Header with icon and title
+│   ├── Footer.h/cpp         — Footer with hint text
+│   ├── ContentArea.h        — Content area calculation
+│   └── Compass.h/cpp        — Compass with heading arrow
 ├── Views/
 │   ├── ListView.h/cpp       — Message list view
 │   └── ChatView.h/cpp       — Chat-style view
 ├── InkHUD2.h/cpp            — Main singleton
-├── Events.h/cpp             — Event definitions
 └── Setup.h/cpp              — Common initialization (modules, menu, buttons)
 ```
 
@@ -153,8 +179,9 @@ build_flags =
 |------|--------|
 | `protobufs/meshtastic/config.proto` | Added `hide_pin` field to BluetoothConfig |
 | `src/mesh/generated/meshtastic/config.pb.h` | Regenerated with `hide_pin` |
+| `src/mesh/Default.h` | Added `TEN_MINUTES_MS` constant |
 | `src/mesh/NodeDB.h` | Added backup file constants and methods |
-| `src/mesh/NodeDB.cpp` | Implemented backup/restore logic |
+| `src/mesh/NodeDB.cpp` | Implemented backup/restore logic + 10min throttle |
 | `src/Power.cpp` | Added auto backup on shutdown |
 | `src/modules/AdminModule.cpp` | Fixed incomplete backup removal code |
 | `src/motion/AccelerometerThread.h` | Added `#ifdef HAS_*_LIB` guards for optional sensors |
