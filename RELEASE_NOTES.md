@@ -29,6 +29,17 @@ Three interchangeable fonts, one active at compile time:
 - Manual "golden" backup: Menu → System → Backup
 - Restore from backup: Menu → System → Restore
 
+### 4. My Position View
+
+View your GPS position with compass:
+- Coordinates in degrees/minutes/seconds format
+- Altitude in meters
+- Time since last GPS update
+- Compass with heading arrow (when ground track available)
+
+Access: Map → Long press → My Position
+
+---
 
 ## Architecture
 
