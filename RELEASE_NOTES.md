@@ -15,7 +15,7 @@ Three interchangeable fonts, one active at compile time:
 - Cell size: 18×18 pixels
 - Proportional Latin, monospace CJK
 - Sources: JetBrains Mono NL Light + Noto Sans family
-- See [docs/fonts/](docs/fonts/) for detailed character coverage
+- See [fonts/](fonts/) for detailed character coverage
 
 ### 2. Hide PIN
 - Hides PIN code on Bluetooth pairing screen
@@ -81,3 +81,4 @@ InkHUD2 is built on the excellent work of the Meshtastic community. Special than
 - Meshtastic firmware developers
 - NicheGraphics e-ink driver authors
 - Noto Fonts and JetBrains Mono projects
+
