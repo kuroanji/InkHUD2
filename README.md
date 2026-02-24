@@ -9,6 +9,7 @@ New graphics architecture designed specifically for e-ink displays on Meshtastic
 - No GFX inheritance hell
 - PIN hide feature
 - Automatic node settings backup
+- GPS position with compass
 
 ### Fully Supported Hardware:
 
