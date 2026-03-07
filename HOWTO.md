@@ -37,11 +37,10 @@ Long press on:
 
 | Button | Short Press | Long Press |
 |--------|-------------|------------|
-| **User Button** | Switch modules / Select in menu | Open menu / Back |
-| **PRG Button** (middle) | Next item in Node List | Jump to end of list |
-| **Aux Button** | Scroll down (lists) | Scroll to top |
+| **User Button** (BOOT) | Switch modules / Select in menu | Open menu / Back |
+| **Aux Button** (PRG, middle) | Scroll down in lists | Scroll to top |
 
-**Note:** E290 has no backlight. PRG button provides quick navigation in Node List without entering menu. Aux button scrolls text in messages.
+**Note:** E290 has no backlight — Aux button is used for scrolling instead. Reset button is hardware-only (not software-controlled).
 
 ---
 
@@ -101,9 +100,8 @@ List of Meshtastic network nodes.
 **Sorting:** By last message time (newest first)
 
 **Navigation (E290 only):**
-- PRG button short press — move to next node in list
-- PRG button long press — jump to end of list
-- Useful for quickly browsing nodes without opening menu
+- Aux button short press — scroll down one node
+- Aux button long press — scroll to top of list
 
 ### Messages
 
