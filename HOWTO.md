@@ -1,6 +1,6 @@
 # InkHUD2 — How To Use
 
-User guide for InkHUD2 on T-Echo Plus.
+User guide for InkHUD2 on supported devices.
 
 # TL;DR
 
@@ -17,14 +17,31 @@ Long press on:
 - Menu → toggle/select
 ---
 
+## Supported Devices
+
+- **LilyGo T-Echo Plus** — nRF52840, 1.54" square e-ink, backlight
+- **Heltec Vision Master E290** — ESP32-S3, 2.9" narrow e-ink, no backlight
+
+---
+
 ## Buttons
 
-T-Echo Plus has two buttons:
+### T-Echo Plus
 
 | Button | Short Press | Long Press |
 |--------|-------------|------------|
 | **User Button** (side) | Switch modules / Select in menu | Open menu / Back |
 | **Touch Button** (capacitive) | Turn off backlight | Turn on backlight (latch) |
+
+### Heltec Vision Master E290
+
+| Button | Short Press | Long Press |
+|--------|-------------|------------|
+| **User Button** | Switch modules / Select in menu | Open menu / Back |
+| **PRG Button** (middle) | Next item in Node List | — |
+| **Aux Button** | Scroll down (lists) | Scroll to top |
+
+**Note:** E290 has no backlight. PRG button provides quick navigation in Node List without entering menu. Aux button scrolls text in messages.
 
 ---
 
@@ -82,6 +99,10 @@ List of Meshtastic network nodes.
 - Connection indicator: ● Direct, ◐ 1 hop, ○ 2+ hops
 
 **Sorting:** By last message time (newest first)
+
+**Navigation (E290 only):**
+- PRG button (middle) — move to next node in list
+- Useful for quickly browsing nodes without opening menu
 
 ### Messages
 
@@ -212,13 +233,15 @@ On first Bluetooth connection, pairing screen is displayed:
 
 ---
 
-## Backlight
+## Backlight (T-Echo Plus only)
 
 **Peek (momentary):** Touch the Touch Button
 **Latch (persistent):** Hold Touch Button for 5 sec
 **Turn off:** Short touch of Touch Button (after latch)
 
 Can also be controlled via Menu → Screen → Backlight.
+
+**Note:** Heltec VM-E290 does not have a backlight.
 
 ---
 
@@ -257,4 +280,3 @@ Try:
 1. Connect USB (device may be in deep sleep)
 2. Hold Reset for 10 seconds
 3. Double-tap Reset to enter bootloader and reflash
-
