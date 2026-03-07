@@ -15,7 +15,7 @@ Three interchangeable fonts, one active at compile time:
 - Cell size: 18×18 pixels
 - Proportional Latin, monospace CJK
 - Sources: JetBrains Mono NL Light + Noto Sans family
-- See [fonts/](fonts/) for detailed character coverage
+- See [docs/fonts/](docs/fonts/) for detailed character coverage
 
 ### 2. Hide PIN
 - Hides PIN code on Bluetooth pairing screen
@@ -29,7 +29,17 @@ Three interchangeable fonts, one active at compile time:
 - Manual "golden" backup: Menu → System → Backup
 - Restore from backup: Menu → System → Restore
 
-### 4. My Position View
+### 4. HeltecVME290 E-Ink Driver
+
+Custom hybrid driver for Heltec Vision Master E290:
+- **OTP LUT** from controller memory (vs custom LUT in firmware)
+- **Auto temperature adaptation** for optimal waveform selection
+- **Fixed ghosting** that occurred with DEPG0290BNS800 driver
+- **Buffer offset** preserved for panel compatibility
+
+Technical details: `src/graphics/niche/InkHUD2/docs/DISPLAY_DRIVER_E290.md`
+
+### 5. My Position View
 
 View your GPS position with compass:
 - Coordinates in degrees/minutes/seconds format
@@ -65,14 +75,28 @@ Meshtastic Firmware
 ## Compatibility
 
 Supported Hardware:
-- LilyGo T-Echo Plus (nRF52840 + GDEY0154D67 e-ink)
+- **LilyGo T-Echo Plus** (nRF52840 + GDEY0154D67 1.54" e-ink)
+- **Heltec Vision Master E290** (ESP32-S3 + DEPG0290BNS800 2.9" e-ink)
 
 Based on:
 - Meshtastic Firmware 2.7.20
 
+### Heltec VM-E290 Notes
+
+- **Narrow screen (128x296)** — UI automatically adapts with smaller fonts
+- **No backlight** — Aux button used for scrolling instead
+- **Custom driver** — `HeltecVME290` driver built to fix ghosting (see docs)
+
+Button mapping for VM-E290:
+
+| Button | Short Press | Long Press |
+|--------|-------------|------------|
+| **User Button** | Select / Next module | Open menu / Back |
+| **Aux Button** | Scroll down | Scroll to top |
+
 ## What's Next
 
-- Additional device support (Elecrow ThinkNode M1, LilyGo T3 S3 E-Paper, LilyGo T-Echo, Heltec MeshPocket, Heltec Vision Master E213, Heltec Vision Master E290, Heltec Wireless Paper)
+- Additional device support (Elecrow ThinkNode M1, LilyGo T3 S3 E-Paper, LilyGo T-Echo, Heltec MeshPocket, Heltec Vision Master E213, Heltec Wireless Paper)
 - BHI260AP PDR Integration (T-Echo Plus has BHI260AP IMU which supports Pedestrian Dead Reckoning (PDR) with GPS fusion)
 
 ## Credits
@@ -81,4 +105,3 @@ InkHUD2 is built on the excellent work of the Meshtastic community. Special than
 - Meshtastic firmware developers
 - NicheGraphics e-ink driver authors
 - Noto Fonts and JetBrains Mono projects
-

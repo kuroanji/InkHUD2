@@ -75,6 +75,30 @@ bool restorePreferences(meshtastic_AdminMessage_BackupLocation location, int res
 
 ---
 
+## E-Ink Drivers
+
+### HeltecVME290 (`src/graphics/niche/Drivers/EInk/HeltecVME290.h/cpp`)
+
+Custom hybrid driver for Heltec Vision Master E290 panel. Fixes ghosting by combining two approaches:
+
+**From ZJY128296_029EAAMFGN (OTP-based):**
+- OTP LUT from controller memory (not custom in firmware)
+- Internal temperature sensor (0x80) for automatic waveform selection
+- Border waveform 0x05 (follow LUT1, drive white)
+- Update sequence 0xFF (differential from OTP)
+
+**From DEPG0290BNS800:**
+- Buffer offset: 1 byte (panel wiring quirk)
+
+**NOT used from ZJY:**
+- configScanning override (not needed for this panel)
+
+**Result:** No ghosting, faster refresh (~300ms), auto temperature adaptation.
+
+See: `src/graphics/niche/InkHUD2/docs/DISPLAY_DRIVER_E290.md`
+
+---
+
 ## InkHUD2 Files
 
 ### New Directories
@@ -154,6 +178,14 @@ Common code moved to `Setup.h/cpp`:
 - Button handlers
 - Event system setup
 
+### `variants/esp32s3/heltec_vision_master_e290/nicheGraphics.h`
+
+Support for both InkHUD (original) and InkHUD2:
+- Uses `HeltecVME290` driver (fixes ghosting vs original `DEPG0290BNS800`)
+- Passes reset pin to driver for deep sleep support
+- Aux button used for scrolling (no backlight on this device)
+- Default rotation: 270° (LoRa antenna up)
+
 ## PlatformIO Configuration
 
 ### `platformio.ini`
@@ -187,6 +219,10 @@ build_flags =
 | `src/motion/AccelerometerThread.h` | Added `#ifdef HAS_*_LIB` guards for optional sensors |
 | `variants/nrf52840/t-echo-plus/nicheGraphics.h` | Simplified to device-specific config only |
 | `variants/nrf52840/t-echo-plus/platformio.ini` | Added `t-echo-plus-inkhud2` env |
+| `variants/esp32s3/heltec_vision_master_e290/nicheGraphics.h` | Added InkHUD2 support, switched to HeltecVME290 driver |
+| `variants/esp32s3/heltec_vision_master_e290/platformio.ini` | Added `heltec-vision-master-e290-inkhud2` env |
+| `src/graphics/niche/Drivers/EInk/HeltecVME290.h` | New hybrid driver for VM-E290 |
+| `src/graphics/niche/Drivers/EInk/HeltecVME290.cpp` | Driver implementation (OTP LUT + offset) |
 
 ### AccelerometerThread.h Details
 
@@ -230,5 +266,9 @@ All files under:
 - `src/graphics/niche/InkHUD2/` (entire directory)
 - `src/graphics/niche/InkHUD2/Setup.h` — device config struct
 - `src/graphics/niche/InkHUD2/Setup.cpp` — common initialization logic
+- `src/graphics/niche/InkHUD2/docs/` — driver documentation
+  - `DISPLAY_DRIVER_E290.md` — HeltecVME290 driver documentation
+  - `HOWTO_ADD_EINK_DRIVER.md` — guide for adding new e-ink drivers
+- `src/graphics/niche/Drivers/EInk/HeltecVME290.h/cpp` — hybrid driver
 - `src/graphics/niche/Fonts/CJK/UnifiedFont18px.h`
 - `src/graphics/niche/Fonts/CJK/CJKFont.h`
