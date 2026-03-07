@@ -4,11 +4,17 @@ User guide for InkHUD2 on T-Echo Plus.
 
 # TL;DR
 
+Short press on:
+
+- Menu → next
+- Module screen → next module 
+
 Long press on:
 
 - Node list → open menu
 - Messages → switch between channels
 - Map → open map menu
+- Menu → toggle/select
 ---
 
 ## Buttons
@@ -251,3 +257,4 @@ Try:
 1. Connect USB (device may be in deep sleep)
 2. Hold Reset for 10 seconds
 3. Double-tap Reset to enter bootloader and reflash
+
