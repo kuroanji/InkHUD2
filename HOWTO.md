@@ -21,6 +21,7 @@ Long press on:
 
 - **LilyGo T-Echo Plus** — nRF52840, 1.54" square e-ink, backlight
 - **Heltec Vision Master E290** — ESP32-S3, 2.9" narrow e-ink, no backlight
+- **Heltec Wireless Paper** — ESP32-S3, 2.13" e-ink (250x122), no backlight, no GPS
 
 ---
 
@@ -41,6 +42,14 @@ Long press on:
 | **Aux Button** (PRG, middle) | Scroll down in lists | Scroll to top |
 
 **Note:** E290 has no backlight — Aux button is used for scrolling instead. Reset button is hardware-only (not software-controlled).
+
+### Heltec Wireless Paper
+
+| Button | Short Press | Long Press |
+|--------|-------------|------------|
+| **User Button** (GPIO 0) | Switch modules / Select in menu | Open menu / Back |
+
+**Note:** Wireless Paper has only one button and no backlight. No GPS module — map features require external GPS data from mesh.
 
 ---
 

@@ -77,6 +77,7 @@ Meshtastic Firmware
 Supported Hardware:
 - **LilyGo T-Echo Plus** (nRF52840 + GDEY0154D67 1.54" e-ink)
 - **Heltec Vision Master E290** (ESP32-S3 + DEPG0290BNS800 2.9" e-ink)
+- **Heltec Wireless Paper** (ESP32-S3 + 2.13" e-ink, 250x122, no GPS)
 
 Based on:
 - Meshtastic Firmware 2.7.20
@@ -94,9 +95,23 @@ Button mapping for VM-E290:
 | **User Button** | Select / Next module | Open menu / Back |
 | **Aux Button** | Scroll down | Scroll to top |
 
+### Heltec Wireless Paper Notes
+
+- **Screen: 250x122** — 2.13" e-ink, landscape aspect ratio similar to VM-E290
+- **Runtime display detection** — auto-detects LCMEN213EFC1 (V1.1) or E0213A367 (V1.1.1, V1.2)
+- **Single button only** — no Aux button, no backlight
+- **No GPS** — map features require position data from other mesh nodes
+- **ADC calibration** — corrected ADC_MULTIPLIER (2.68) for accurate battery readings
+
+Button mapping for Wireless Paper:
+
+| Button | Short Press | Long Press |
+|--------|-------------|------------|
+| **User Button** | Select / Next module | Open menu / Back |
+
 ## What's Next
 
-- Additional device support (Elecrow ThinkNode M1, LilyGo T3 S3 E-Paper, LilyGo T-Echo, Heltec MeshPocket, Heltec Vision Master E213, Heltec Wireless Paper)
+- Additional device support (Elecrow ThinkNode M1, LilyGo T3 S3 E-Paper, LilyGo T-Echo, Heltec MeshPocket, Heltec Vision Master E213)
 - BHI260AP PDR Integration (T-Echo Plus has BHI260AP IMU which supports Pedestrian Dead Reckoning (PDR) with GPS fusion)
 
 ## Credits
