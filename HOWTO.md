@@ -19,11 +19,12 @@ Long press on:
 
 ## Supported Devices
 
-- **LilyGo T-Echo** — nRF52840, 1.54" square e-ink, capacitive touch backlight
-- **LilyGo T-Echo Plus** — nRF52840, 1.54" square e-ink, backlight
-- **Heltec Vision Master E290** — ESP32-S3, 2.9" narrow e-ink, no backlight
+- **LilyGo T-Echo** — nRF52840, 1.54" square e-ink (200x200), capacitive touch backlight
+- **LilyGo T-Echo Plus** — nRF52840, 1.54" square e-ink (200x200), backlight
+- **Heltec Mesh Pocket Qi2** — nRF52840, 2.13" e-ink (122x250), single button, no backlight
+- **Heltec Vision Master E290** — ESP32-S3, 2.9" narrow e-ink (128x296), two buttons, no backlight
 - **Heltec Vision Master E213** — ESP32-S3, 2.13" e-ink (250x122), two buttons
-- **Heltec Wireless Paper** — ESP32-S3, 2.13" e-ink (250x122), no backlight, no GPS
+- **Heltec Wireless Paper** — ESP32-S3, 2.13" e-ink (250x122), single button, no backlight, no GPS
 
 ---
 
@@ -71,6 +72,14 @@ Long press on:
 
 **Note:** Wireless Paper has only one button and no backlight. No GPS module — map features require external GPS data from mesh.
 
+### Heltec Mesh Pocket Qi2
+
+| Button | Short Press | Long Press |
+|--------|-------------|------------|
+| **User Button** | Switch modules / Select in menu | Open menu / Back |
+
+**Note:** Single button device, no backlight. Bootloader mode: double-click Reset button (volume appears as `HT-n5262`).
+
 ---
 
 ## Navigation
@@ -108,6 +117,7 @@ After boot, **Node List** is displayed — list of nodes in the network.
 │   ├── < Back
 │   ├── Hide PIN (toggle)
 │   ├── Backup (action)
+│   ├── Restore (action)
 │   └── Shut Down (action)
 └── Exit
 ```
@@ -128,7 +138,7 @@ List of Meshtastic network nodes.
 
 **Sorting:** By last message time (newest first)
 
-**Navigation (E290 only):**
+**Navigation (E290, E213 with Aux button):**
 - Aux button short press — scroll down one node
 - Aux button long press — scroll to top of list
 
@@ -190,6 +200,14 @@ Creates "golden" backup of settings.
 - `/backups/auto_backup.proto` — automatic backup
 
 **Auto-recovery:** On boot, if main configs are corrupted, system attempts to restore from backup.
+
+### Restore
+
+Restore settings from backup.
+
+**Execute:** Menu → System → Restore
+
+Restores configuration from the most recent backup and reboots the device.
 
 ### Shut Down
 
@@ -261,15 +279,15 @@ On first Bluetooth connection, pairing screen is displayed:
 
 ---
 
-## Backlight (T-Echo Plus only)
+## Backlight (T-Echo, T-Echo Plus only)
 
 **Peek (momentary):** Touch the Touch Button
-**Latch (persistent):** Hold Touch Button for 5 sec
+**Latch (persistent):** Hold Touch Button
 **Turn off:** Short touch of Touch Button (after latch)
 
 Can also be controlled via Menu → Screen → Backlight.
 
-**Note:** Heltec VM-E290 does not have a backlight.
+**Note:** T-Echo has 5 second latch limit (capacitive touch IC limitation). Heltec devices do not have backlights.
 
 ---
 
@@ -288,8 +306,10 @@ Useful if device is mounted in non-standard orientation.
 ### Screen flickers / ghosting
 
 E-ink displays can accumulate "ghost" images. Solution:
-- Wait — system automatically does FULL refresh during extended idle
+- Wait — system automatically does FULL refresh during extended idle (60 seconds)
 - Reboot the device
+
+**Note:** Heltec Mesh Pocket Qi2 has more noticeable ghosting due to display panel limitations. This is normal for this hardware.
 
 ### Node doesn't appear on map
 
