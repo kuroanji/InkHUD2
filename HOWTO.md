@@ -19,13 +19,24 @@ Long press on:
 
 ## Supported Devices
 
+- **LilyGo T-Echo** — nRF52840, 1.54" square e-ink, capacitive touch backlight
 - **LilyGo T-Echo Plus** — nRF52840, 1.54" square e-ink, backlight
 - **Heltec Vision Master E290** — ESP32-S3, 2.9" narrow e-ink, no backlight
+- **Heltec Vision Master E213** — ESP32-S3, 2.13" e-ink (250x122), two buttons
 - **Heltec Wireless Paper** — ESP32-S3, 2.13" e-ink (250x122), no backlight, no GPS
 
 ---
 
 ## Buttons
+
+### T-Echo
+
+| Button | Short Press | Long Press |
+|--------|-------------|------------|
+| **User Button** (side) | Switch modules / Select in menu | Open menu / Back |
+| **Touch Button** (capacitive) | Turn off backlight | Turn on backlight (5s latch) |
+
+**Note:** Touch button has 5 second latch time (limited by T-Echo's capacitive touch IC).
 
 ### T-Echo Plus
 
@@ -42,6 +53,15 @@ Long press on:
 | **Aux Button** (PRG, middle) | Scroll down in lists | Scroll to top |
 
 **Note:** E290 has no backlight — Aux button is used for scrolling instead. Reset button is hardware-only (not software-controlled).
+
+### Heltec Vision Master E213
+
+| Button | Short Press | Long Press |
+|--------|-------------|------------|
+| **User Button** (BOOT) | Switch modules / Select in menu | Open menu / Back |
+| **Aux Button** (GPIO 21) | Scroll down in lists | Scroll to top |
+
+**Note:** Same screen as Wireless Paper (250x122), but with two buttons and GPS support.
 
 ### Heltec Wireless Paper
 
