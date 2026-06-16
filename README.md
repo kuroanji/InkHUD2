@@ -13,9 +13,13 @@ New graphics architecture designed specifically for e-ink displays on Meshtastic
 
 ### Fully Supported Hardware:
 
-- LilyGo T-Echo Plus (nRF52840 + GDEY0154D67 e-ink)
+- LilyGo T-Echo (nRF52840 + GDEY0154D67 1.54" e-ink, capacitive touch)
+- LilyGo T-Echo Plus (nRF52840 + GDEY0154D67 1.54" e-ink)
 - Heltec Vision Master E290 (ESP32-S3 + DEPG0290BNS800 2.9" e-ink)
 - Heltec Wireless Paper (ESP32-S3 + 2.13" e-ink, 250x122)
+- Heltec Vision Master E213 (ESP32-S3 + 2.13" e-ink, 250x122, two buttons)
+- Heltec Wireless Paper (ESP32-S3 + 2.13" e-ink, 250x122, no GPS)
+- Heltec Mesh Pocket Qi2 (nRF52840 + LCMEN2R13ECC1 2.13" e-ink, 122x250, single button)
 
 ### User guide for InkHUD2 on T-Echo Plus: 
 
