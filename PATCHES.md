@@ -216,13 +216,39 @@ build_flags =
 | `src/mesh/NodeDB.cpp` | Implemented backup/restore logic + 10min throttle |
 | `src/Power.cpp` | Added auto backup on shutdown |
 | `src/modules/AdminModule.cpp` | Fixed incomplete backup removal code |
-| `src/motion/AccelerometerThread.h` | Added `#ifdef HAS_*_LIB` guards for optional sensors |
+| `src/motion/AccelerometerThread.h` | Added `__has_include` guards for optional sensors |
+| `src/motion/MagnetometerThread.h` | Added `__has_include` guard for MMC5983MA sensor |
+
+### Variant Files (nRF52840)
+
+| File | Change |
+|------|--------|
+| `variants/nrf52840/t-echo/nicheGraphics.h` | Added InkHUD2 support |
+| `variants/nrf52840/t-echo/platformio.ini` | Added `t-echo-inkhud2` env |
 | `variants/nrf52840/t-echo-plus/nicheGraphics.h` | Simplified to device-specific config only |
 | `variants/nrf52840/t-echo-plus/platformio.ini` | Added `t-echo-plus-inkhud2` env |
+| `variants/nrf52840/heltec_mesh_pocket/nicheGraphics.h` | Added InkHUD2 support with idle maintenance |
+| `variants/nrf52840/heltec_mesh_pocket/platformio.ini` | Added `heltec-mesh-pocket-qi2-inkhud2` env |
+
+### Variant Files (ESP32-S3)
+
+| File | Change |
+|------|--------|
 | `variants/esp32s3/heltec_vision_master_e290/nicheGraphics.h` | Added InkHUD2 support, switched to HeltecVME290 driver |
 | `variants/esp32s3/heltec_vision_master_e290/platformio.ini` | Added `heltec-vision-master-e290-inkhud2` env |
-| `src/graphics/niche/Drivers/EInk/HeltecVME290.h` | New hybrid driver for VM-E290 |
-| `src/graphics/niche/Drivers/EInk/HeltecVME290.cpp` | Driver implementation (OTP LUT + offset) |
+| `variants/esp32s3/heltec_vision_master_e213/nicheGraphics.h` | Added InkHUD2 support |
+| `variants/esp32s3/heltec_vision_master_e213/platformio.ini` | Added `heltec-vision-master-e213-inkhud2` env |
+| `variants/esp32s3/heltec_wireless_paper/nicheGraphics.h` | Added InkHUD2 support |
+| `variants/esp32s3/heltec_wireless_paper/platformio.ini` | Added `heltec-wireless-paper-inkhud2` env |
+
+### E-Ink Drivers
+
+| File | Change |
+|------|--------|
+| `src/graphics/niche/Drivers/EInk/EInk.h` | Added pollingTimeout for slow displays |
+| `src/graphics/niche/Drivers/EInk/EInk.cpp` | Timeout handling in polling |
+| `src/graphics/niche/Drivers/EInk/HeltecVME290.h/cpp` | New hybrid driver for VM-E290 (OTP LUT + offset) |
+| `src/graphics/niche/Drivers/EInk/LCMEN2R13ECC1.h/cpp` | Temperature sensor + border waveform config |
 
 ### AccelerometerThread.h Details
 
@@ -264,11 +290,36 @@ FSCom.remove(userBackupFileName);
 
 All files under:
 - `src/graphics/niche/InkHUD2/` (entire directory)
-- `src/graphics/niche/InkHUD2/Setup.h` — device config struct
+- `src/graphics/niche/InkHUD2/Setup.h` — device config struct with `idleFullRefreshMs` option
 - `src/graphics/niche/InkHUD2/Setup.cpp` — common initialization logic
 - `src/graphics/niche/InkHUD2/docs/` — driver documentation
   - `DISPLAY_DRIVER_E290.md` — HeltecVME290 driver documentation
   - `HOWTO_ADD_EINK_DRIVER.md` — guide for adding new e-ink drivers
-- `src/graphics/niche/Drivers/EInk/HeltecVME290.h/cpp` — hybrid driver
+- `src/graphics/niche/Drivers/EInk/HeltecVME290.h/cpp` — hybrid driver for VM-E290
 - `src/graphics/niche/Fonts/CJK/UnifiedFont18px.h`
 - `src/graphics/niche/Fonts/CJK/CJKFont.h`
+
+## Build Environments
+
+| Environment | Platform | Device |
+|-------------|----------|--------|
+| `t-echo-inkhud2` | nRF52840 | LilyGo T-Echo |
+| `t-echo-plus-inkhud2` | nRF52840 | LilyGo T-Echo Plus |
+| `heltec-mesh-pocket-qi2-inkhud2` | nRF52840 | Heltec Mesh Pocket Qi2 |
+| `heltec-vision-master-e290-inkhud2` | ESP32-S3 | Heltec Vision Master E290 |
+| `heltec-vision-master-e213-inkhud2` | ESP32-S3 | Heltec Vision Master E213 |
+| `heltec-wireless-paper-inkhud2` | ESP32-S3 | Heltec Wireless Paper |
+
+## Build Commands
+
+```bash
+# nRF52840 devices (produces .uf2 file)
+pio run -e t-echo-inkhud2
+pio run -e t-echo-plus-inkhud2
+pio run -e heltec-mesh-pocket-qi2-inkhud2
+
+# ESP32-S3 devices (produces .factory.bin file)
+pio run -e heltec-vision-master-e290-inkhud2
+pio run -e heltec-vision-master-e213-inkhud2
+pio run -e heltec-wireless-paper-inkhud2
+```
