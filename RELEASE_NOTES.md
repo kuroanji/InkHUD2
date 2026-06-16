@@ -75,12 +75,29 @@ Meshtastic Firmware
 ## Compatibility
 
 Supported Hardware:
+- **LilyGo T-Echo** (nRF52840 + GDEY0154D67 1.54" e-ink, capacitive touch)
 - **LilyGo T-Echo Plus** (nRF52840 + GDEY0154D67 1.54" e-ink)
 - **Heltec Vision Master E290** (ESP32-S3 + DEPG0290BNS800 2.9" e-ink)
+- **Heltec Vision Master E213** (ESP32-S3 + 2.13" e-ink, 250x122, two buttons)
 - **Heltec Wireless Paper** (ESP32-S3 + 2.13" e-ink, 250x122, no GPS)
+- **Heltec Mesh Pocket Qi2** (nRF52840 + LCMEN2R13ECC1 2.13" e-ink, 122x250, single button)
 
 Based on:
-- Meshtastic Firmware 2.7.20
+- Meshtastic Firmware 2.7.25
+
+### LilyGo T-Echo Notes
+
+- **Same display as T-Echo Plus** — GDEY0154D67 (200x200)
+- **Minimal RTC driver** — uses PCF8563_Minimal.h (saves ~130KB vs SensorLib)
+- **Capacitive touch button** — controls backlight (peek/latch)
+- **5 second latch** — limited by T-Echo's capacitive touch IC
+
+Button mapping for T-Echo:
+
+| Button | Short Press | Long Press |
+|--------|-------------|------------|
+| **User Button** (side) | Select / Next module | Open menu / Back |
+| **Touch Button** (capacitive) | Turn off backlight | Turn on backlight (latch) |
 
 ### Heltec VM-E290 Notes
 
@@ -89,6 +106,20 @@ Based on:
 - **Custom driver** — `HeltecVME290` driver built to fix ghosting (see docs)
 
 Button mapping for VM-E290:
+
+| Button | Short Press | Long Press |
+|--------|-------------|------------|
+| **User Button** | Select / Next module | Open menu / Back |
+| **Aux Button** | Scroll down | Scroll to top |
+
+### Heltec Vision Master E213 Notes
+
+- **Screen: 250x122** — same 2.13" e-ink as Wireless Paper
+- **Runtime display detection** — auto-detects LCMEN213EFC1 (V1) or E0213A367 (V1.1)
+- **Two buttons** — User + Aux (GPIO 21) for scrolling
+- **GPS support** — full map features available
+
+Button mapping for VM-E213:
 
 | Button | Short Press | Long Press |
 |--------|-------------|------------|
@@ -109,9 +140,23 @@ Button mapping for Wireless Paper:
 |--------|-------------|------------|
 | **User Button** | Select / Next module | Open menu / Back |
 
+### Heltec Mesh Pocket Qi2 Notes
+
+- **Screen: 122x250** — 2.13" e-ink (LCMEN2R13ECC1, SSD1680 controller)
+- **Landscape orientation** — rotation = 3 (250x122 logical)
+- **Single button** — no Aux button, no backlight
+- **Ghosting mitigation** — idle maintenance FULL refresh after 60s of inactivity
+- **Hardware limitation** — display has poor OTP waveform, ghosting is inherent to this panel
+
+Button mapping for Mesh Pocket Qi2:
+
+| Button | Short Press | Long Press |
+|--------|-------------|------------|
+| **User Button** | Select / Next module | Open menu / Back |
+
 ## What's Next
 
-- Additional device support (Elecrow ThinkNode M1, LilyGo T3 S3 E-Paper, LilyGo T-Echo, Heltec MeshPocket, Heltec Vision Master E213)
+- Additional device support (Elecrow ThinkNode M1, LilyGo T3 S3 E-Paper)
 - BHI260AP PDR Integration (T-Echo Plus has BHI260AP IMU which supports Pedestrian Dead Reckoning (PDR) with GPS fusion)
 
 ## Credits
