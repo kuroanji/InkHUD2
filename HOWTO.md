@@ -24,7 +24,7 @@ Long press on:
 - **Heltec Mesh Pocket Qi2** — nRF52840, 2.13" e-ink (122x250), single button, no backlight
 - **Heltec Vision Master E290** — ESP32-S3, 2.9" narrow e-ink (128x296), two buttons, no backlight
 - **Heltec Vision Master E213** — ESP32-S3, 2.13" e-ink (250x122), two buttons
-- **Elecrow ThinkNode M1** — nRF52840, 1.54" square e-ink (200x200), two buttons, backlight always on (not controllable)
+- **Elecrow ThinkNode M1** — nRF52840, 1.54" square e-ink (200x200), two buttons, front light dimmed by the hardware knob
 - **Heltec Wireless Paper** — ESP32-S3, 2.13" e-ink (250x122), single button, no backlight, no GPS
 
 ---
@@ -88,9 +88,13 @@ Long press on:
 | **Top** (circle icon) | Switch modules / Select in menu | Open menu / Back |
 | **Bottom** (triangle icon) | Scroll down | Scroll to top |
 
-**Note:** The backlight cannot be controlled — it is on whenever the device is powered
-(it runs off the peripheral power rail), so the second button is used for scrolling
-instead. There is also a separate physical GPS switch on the device. Bootloader volume
+**Front light:** automatic — it lights up on any button press and goes out after **30
+seconds** of inactivity, so nothing is left burning in your pocket. Use the **rotary knob
+on the power switch** to set how bright it is while lit (note the knob alone can't switch
+it off — at its minimum the light still glows). No backlight entry in the menu and no
+button spent on it.
+
+**Note:** There is also a separate physical GPS switch on the device. Bootloader volume
 appears as `ELECROWBOOT`.
 
 ---
