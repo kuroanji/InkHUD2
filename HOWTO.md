@@ -24,6 +24,7 @@ Long press on:
 - **Heltec Mesh Pocket Qi2** — nRF52840, 2.13" e-ink (122x250), single button, no backlight
 - **Heltec Vision Master E290** — ESP32-S3, 2.9" narrow e-ink (128x296), two buttons, no backlight
 - **Heltec Vision Master E213** — ESP32-S3, 2.13" e-ink (250x122), two buttons
+- **Elecrow ThinkNode M1** — nRF52840, 1.54" square e-ink (200x200), two buttons, backlight always on (not controllable)
 - **Heltec Wireless Paper** — ESP32-S3, 2.13" e-ink (250x122), single button, no backlight, no GPS
 
 ---
@@ -79,6 +80,18 @@ Long press on:
 | **User Button** | Switch modules / Select in menu | Open menu / Back |
 
 **Note:** Single button device, no backlight. Bootloader mode: double-click Reset button (volume appears as `HT-n5262`).
+
+### Elecrow ThinkNode M1
+
+| Button | Short Press | Long Press |
+|--------|-------------|------------|
+| **Top** (circle icon) | Switch modules / Select in menu | Open menu / Back |
+| **Bottom** (triangle icon) | Scroll down | Scroll to top |
+
+**Note:** The backlight cannot be controlled — it is on whenever the device is powered
+(it runs off the peripheral power rail), so the second button is used for scrolling
+instead. There is also a separate physical GPS switch on the device. Bootloader volume
+appears as `ELECROWBOOT`.
 
 ---
 
