@@ -20,6 +20,7 @@ New graphics architecture designed specifically for e-ink displays on Meshtastic
 - Heltec Vision Master E213 (ESP32-S3 + 2.13" e-ink, 250x122, two buttons)
 - Heltec Wireless Paper (ESP32-S3 + 2.13" e-ink, 250x122, no GPS)
 - Heltec Mesh Pocket Qi2 (nRF52840 + LCMEN2R13ECC1 2.13" e-ink, 122x250, single button)
+- Elecrow ThinkNode M1 (nRF52840 + GDEY0154D67 1.54" e-ink, two physical buttons)
 
 ### User guide for InkHUD2 on T-Echo Plus: 
 
@@ -36,4 +37,3 @@ New graphics architecture designed specifically for e-ink displays on Meshtastic
 ### Merge branch: 
 
 - Japanese/Latin/Cyrillic font included by default (just replace it with Chinese/Korean one if needed): [https://github.com/kuroanji/firmware/tree/InkHUD2](https://github.com/kuroanji/firmware/tree/InkHUD2)
-- Instructions for adding the `hide_pin` field to Meshtastic protobufs: `HIDE_PIN_PROTOBUF.md`
