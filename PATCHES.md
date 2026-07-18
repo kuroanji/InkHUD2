@@ -6,20 +6,25 @@ Documentation of all changes relative to base Meshtastic firmware.
 
 ## Core Firmware Changes
 
-### 1. Bluetooth Hide PIN (`protobufs/meshtastic/config.proto`)
+### 1. Bluetooth Hide PIN — ❌ **RETIRED 2026-07-18, no longer a protobuf patch**
 
-Added field for PIN hiding:
+**Previously** this required hand-patching `protobufs/meshtastic/config.proto` to add
+`bool hide_pin = 4;` to `BluetoothConfig` and regenerating `config.pb.h`. That patch was
+**wiped by every upstream base bump** — and indeed it was silently lost in the 2.7.25 bump
+(2026-06-16), leaving InkHUD2 referencing a field that no longer existed. That was one of
+the causes of the tree-wide build breakage found on 2026-07-18.
 
-```protobuf
-message BluetoothConfig {
-    // ... existing fields ...
-    bool hide_pin = 4;  // NEW: Hide PIN on pairing screen
-}
-```
+**Now:** the setting lives in InkHUD2's own settings file `/prefs/inkhud2.dat`
+(format **v3**: `[version][rotation][hidePIN]`, v2 still readable). Accessors:
+`Settings::getHidePIN() / setHidePIN() / hidePINPtr()`; persisted via `Settings::save()`
+(not `nodeDB->saveToDisk()`).
 
-**Files:**
-- `protobufs/meshtastic/config.proto` — field definition
-- `src/mesh/generated/meshtastic/config.pb.h` — generated header
+**Files:** `src/graphics/niche/InkHUD2/Core/Settings.{h,cpp}`, `Setup.cpp`.
+
+> ✅ **Consequence: we no longer patch protobufs at all.** `git diff` over
+> `src/mesh/generated/` and `protobufs/` is empty — they are bit-identical to upstream.
+> An upstream base bump now needs **zero** manual protobuf work. `docs/HIDE_PIN_PROTOBUF.md`
+> is kept only as history — do not apply it.
 
 ---
 
@@ -318,8 +323,3 @@ pio run -e t-echo-inkhud2
 pio run -e t-echo-plus-inkhud2
 pio run -e heltec-mesh-pocket-qi2-inkhud2
 
-# ESP32-S3 devices (produces .factory.bin file)
-pio run -e heltec-vision-master-e290-inkhud2
-pio run -e heltec-vision-master-e213-inkhud2
-pio run -e heltec-wireless-paper-inkhud2
-```
