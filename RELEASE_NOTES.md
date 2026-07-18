@@ -146,9 +146,12 @@ Button mapping for T-Echo:
 ### Elecrow ThinkNode M1 Notes
 
 - **Same display as T-Echo** — GDEY0154D67 (200x200), so the layout needed no changes
-- **No controllable backlight** — the light runs off the peripheral power rail and is on
-  whenever the device is powered; `PIN_EINK_EN` is a hardware dimmer, not an on/off gate.
-  The aux button is therefore used for scrolling instead.
+- **Front light turns itself on and off** — `PIN_EINK_EN` is the on/off gate; the rotary
+  knob on the power switch sets brightness but never reaches full off (at minimum the
+  light still glows, so it can't be used as a switch). Rather than spend a button on it,
+  InkHUD2 lights it on any input and drops it after 30 s of inactivity, like a phone
+  screen — no idle drain, and the aux button stays free for scrolling. The knob still
+  decides how bright it is while lit.
 - **Rotation 0** (unlike T-Echo's 3)
 - **Slim build** — uses `nrf52_base`, not `nrf52840_base`: the board has no onboard
   environmental sensors, so skipping those drivers saves ~124 KB (94.5% → 78.9% flash)
