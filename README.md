@@ -22,7 +22,7 @@ New graphics architecture designed specifically for e-ink displays on Meshtastic
 - Heltec Mesh Pocket Qi2 (nRF52840 + LCMEN2R13ECC1 2.13" e-ink, 122x250, single button)
 - Elecrow ThinkNode M1 (nRF52840 + GDEY0154D67 1.54" e-ink, two physical buttons)
 
-### User guide for InkHUD2 on T-Echo Plus: 
+### User guide for InkHUD2: 
 
 - Read `HOWTO.md`
 
